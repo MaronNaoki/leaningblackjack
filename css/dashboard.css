@@ -1,0 +1,641 @@
+/**
+ * ブラックジャック統計ダッシュボード CSS
+ * Phase 5: 統計表示機能実装
+ */
+
+/* ダッシュボード全体 */
+.statistics-dashboard {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.statistics-dashboard.hidden {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ダッシュボードヘッダー */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard-header h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.dashboard-header h2 i {
+    margin-right: 0.5rem;
+    color: #3498db;
+}
+
+.close-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1);
+}
+
+/* ダッシュボードコンテンツ */
+.dashboard-content {
+    flex: 1;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 2rem;
+    max-width: 1600px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* 統計セクション */
+.stats-section {
+    background: rgba(30, 30, 30, 0.95);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.stats-section h3 {
+    margin: 0 0 1.5rem 0;
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5rem;
+}
+
+.stats-section h3 i {
+    margin-right: 0.5rem;
+    color: #3498db;
+}
+
+/* 総合統計グリッド */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #5dade2, #85c1e9);
+    border-radius: 12px;
+    padding: 1.25rem;
+    display: flex;
+    align-items: center;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    border-radius: 12px;
+    pointer-events: none;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.5);
+    background: linear-gradient(135deg, #85c1e9, #aed6f1);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1.25rem;
+    font-size: 1.75rem;
+    background: rgba(52, 152, 219, 0.3);
+    color: #5dade2;
+    border: 2px solid rgba(52, 152, 219, 0.4);
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+    flex-shrink: 0;
+}
+
+.stat-icon.win {
+    background: rgba(46, 204, 113, 0.3);
+    color: #58d68d;
+    border-color: rgba(46, 204, 113, 0.4);
+    box-shadow: 0 2px 8px rgba(46, 204, 113, 0.3);
+}
+
+.stat-icon.money {
+    background: rgba(241, 196, 15, 0.3);
+    color: #f7dc6f;
+    border-color: rgba(241, 196, 15, 0.4);
+    box-shadow: 0 2px 8px rgba(241, 196, 15, 0.3);
+}
+
+.stat-icon.special {
+    background: rgba(155, 89, 182, 0.3);
+    color: #bb8fce;
+    border-color: rgba(155, 89, 182, 0.4);
+    box-shadow: 0 2px 8px rgba(155, 89, 182, 0.3);
+}
+
+.stat-content {
+    flex: 1;
+    z-index: 1;
+    position: relative;
+}
+
+.stat-value {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: #ffffff;
+    margin-bottom: 0.3rem;
+    line-height: 1.2;
+}
+
+.stat-label {
+    font-size: 1.1rem;
+    color: #ffffff;
+    font-weight: 600;
+    opacity: 0.95;
+}
+
+/* 戦略統計 */
+.strategy-stats-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1.5rem;
+}
+
+.strategy-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.summary-item {
+    text-align: center;
+    padding: 1.25rem;
+    background: linear-gradient(135deg, rgba(52, 73, 94, 0.8), rgba(44, 62, 80, 0.8));
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.summary-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+.summary-label {
+    font-size: 1rem;
+    color: #e8f4fd;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.summary-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    line-height: 1.1;
+}
+
+.summary-value.accuracy-excellent {
+    color: #2ecc71;
+}
+
+.summary-value.accuracy-good {
+    color: #3498db;
+}
+
+.summary-value.accuracy-average {
+    color: #f39c12;
+}
+
+.summary-value.accuracy-poor {
+    color: #e74c3c;
+}
+
+/* 詳細分析 */
+.breakdown-section {
+    margin-bottom: 1.5rem;
+}
+
+.breakdown-section h4 {
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 0.75rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.breakdown-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.breakdown-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+}
+
+.breakdown-label {
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 500;
+    min-width: 100px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.progress-bar {
+    flex: 1;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    margin-left: 1.25rem;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3498db, #2ecc71);
+    border-radius: 12px;
+    transition: width 0.5s ease;
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    z-index: 1;
+}
+
+/* チャートセクション */
+.chart-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+}
+
+.chart-type-selector,
+.time-range-selector {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.chart-controls label {
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.chart-controls select {
+    background: rgba(44, 62, 80, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    padding: 0.5rem;
+    border-radius: 4px;
+    outline: none;
+}
+
+.chart-controls select:focus {
+    border-color: #3498db;
+}
+
+.chart-container {
+    height: 300px;
+    background: rgba(44, 62, 80, 0.3);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+/* 弱点分析 */
+.no-weaknesses {
+    text-align: center;
+    padding: 2rem;
+    color: #ffffff;
+}
+
+.no-weaknesses i {
+    font-size: 3rem;
+    color: #2ecc71;
+    margin-bottom: 1rem;
+}
+
+.weakness-header {
+    margin-bottom: 1rem;
+}
+
+.weakness-header p {
+    color: #ffffff;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.weakness-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.weakness-item {
+    display: flex;
+    align-items: center;
+    background: rgba(44, 62, 80, 0.5);
+    border-radius: 8px;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.weakness-rank {
+    width: 30px;
+    height: 30px;
+    background: #e74c3c;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.weakness-details {
+    flex: 1;
+}
+
+.weakness-situation {
+    color: #ffffff;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+
+.weakness-actions {
+    margin-bottom: 0.3rem;
+}
+
+.action-wrong {
+    color: #e74c3c;
+    font-weight: 600;
+}
+
+.action-correct {
+    color: #2ecc71;
+    font-weight: 600;
+}
+
+.weakness-frequency {
+    color: #bdc3c7;
+    font-size: 0.8rem;
+}
+
+/* 制御ボタン */
+.control-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.control-btn {
+    flex: 1;
+    min-width: 150px;
+    padding: 0.8rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.control-btn.export {
+    background: #3498db;
+    color: white;
+}
+
+.control-btn.export:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+}
+
+.control-btn.import {
+    background: #2ecc71;
+    color: white;
+}
+
+.control-btn.import:hover {
+    background: #27ae60;
+    transform: translateY(-2px);
+}
+
+.control-btn.reset {
+    background: #e74c3c;
+    color: white;
+}
+
+.control-btn.reset:hover {
+    background: #c0392b;
+    transform: translateY(-2px);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 1200px) {
+    .dashboard-content {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+    
+    .strategy-stats-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-header {
+        padding: 1rem;
+    }
+    
+    .dashboard-header h2 {
+        font-size: 1.4rem;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 0.8rem;
+    }
+    
+    .stat-card {
+        padding: 0.8rem;
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .stat-icon {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+    }
+    
+    .chart-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .chart-container {
+        height: 250px;
+    }
+    
+    .control-buttons {
+        flex-direction: column;
+    }
+    
+    .control-btn {
+        min-width: auto;
+    }
+    
+    .weakness-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .weakness-rank {
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-content {
+        padding: 0.5rem;
+        gap: 1rem;
+    }
+    
+    .stats-section {
+        padding: 1rem;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-card {
+        flex-direction: row;
+        text-align: left;
+    }
+    
+    .stat-icon {
+        margin-right: 1rem;
+        margin-bottom: 0;
+    }
+}
+
+/* ダークモード調整 */
+@media (prefers-color-scheme: dark) {
+    .statistics-dashboard {
+        background: rgba(0, 0, 0, 0.98);
+    }
+    
+    .stats-section {
+        background: rgba(20, 20, 20, 0.95);
+        border-color: rgba(255, 255, 255, 0.05);
+    }
+}
+
+/* アニメーション効果 */
+.stat-card,
+.weakness-item,
+.summary-item {
+    animation: slideInUp 0.5s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+} 

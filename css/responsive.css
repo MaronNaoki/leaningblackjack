@@ -1,0 +1,1532 @@
+/* ========================================
+   レスポンシブデザイン - ブラックジャック練習アプリ
+   Phase 6: UI/UX改善・詳細調整
+   ======================================== */
+
+/* ブレークポイント定義 - Phase 6 拡張 */
+:root {
+    --breakpoint-xs: 320px;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-xl: 1200px;
+    --breakpoint-xxl: 1400px;
+    
+    /* 新しい中間ブレークポイント */
+    --breakpoint-mobile-lg: 414px;
+    --breakpoint-tablet-sm: 600px;
+    --breakpoint-tablet-lg: 900px;
+    --breakpoint-desktop-sm: 1366px;
+    --breakpoint-desktop-lg: 1920px;
+}
+
+/* ========================================
+   モバイルファースト基準（~575px）
+   ======================================== */
+
+/* 基本的なモバイル調整は main.css で実装済み */
+
+/* ========================================
+   小型モバイル（~374px）
+   ======================================== */
+
+@media (max-width: 374px) {
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+    
+    .header__title {
+        font-size: var(--font-size-xl);
+    }
+    
+    .header__nav {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .nav-btn {
+        flex: 1;
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: var(--font-size-xs);
+    }
+    
+    .game-info {
+        padding: var(--spacing-sm);
+    }
+    
+    .game-info__item .label {
+        font-size: var(--font-size-xs);
+    }
+    
+    .game-info__item .value {
+        font-size: var(--font-size-base);
+    }
+    
+    .controls-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-sm);
+    }
+    
+    .control-btn {
+        padding: var(--spacing-sm);
+        font-size: var(--font-size-sm);
+        min-height: 44px;
+    }
+    
+    .control-btn--new-game {
+        font-size: var(--font-size-base);
+        padding: var(--spacing-md) var(--spacing-lg);
+    }
+}
+
+/* ========================================
+   標準モバイル（375px~575px）
+   ======================================== */
+
+@media (min-width: 375px) and (max-width: 575px) {
+    .controls-grid {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 400px;
+    }
+    
+    .card-container {
+        gap: var(--spacing-xs);
+    }
+}
+
+/* ========================================
+   大型モバイル・小型タブレット（576px~767px）
+   ======================================== */
+
+@media (min-width: 576px) {
+    .container {
+        padding: 0 var(--spacing-lg);
+    }
+    
+    .header .container {
+        gap: var(--spacing-lg);
+    }
+    
+    .game-container {
+        padding: var(--spacing-2xl) 0;
+    }
+    
+    .game-container .container {
+        gap: var(--spacing-xl);
+    }
+    
+    .game-info {
+        padding: var(--spacing-lg);
+    }
+    
+    .controls-grid {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 600px;
+    }
+    
+    .control-btn {
+        padding: var(--spacing-md) var(--spacing-lg);
+    }
+    
+    .dealer-area,
+    .player-area {
+        padding: var(--spacing-xl);
+    }
+    
+    .card-container {
+        min-height: 140px;
+        gap: var(--spacing-md);
+    }
+    
+    .modal {
+        padding: var(--spacing-lg);
+    }
+    
+    .modal-content {
+        max-width: 600px;
+    }
+}
+
+/* ========================================
+   タブレット（768px~1023px）
+   ======================================== */
+
+@media (min-width: 768px) {
+    .header__title {
+        font-size: var(--font-size-3xl);
+    }
+    
+    .nav-btn {
+        padding: var(--spacing-md) var(--spacing-lg);
+        font-size: var(--font-size-base);
+    }
+    
+    /* ゲーム情報をより詳細に表示 */
+    .game-info {
+        justify-content: space-between;
+        padding: var(--spacing-xl);
+    }
+    
+    .game-info__item {
+        flex-direction: row;
+        gap: var(--spacing-sm);
+    }
+    
+    .game-info__item .label {
+        margin-bottom: 0;
+        font-size: var(--font-size-base);
+    }
+    
+    .game-info__item .value {
+        font-size: var(--font-size-xl);
+    }
+    
+    /* ディーラーとプレイヤー領域の配置改善 */
+    .dealer-area,
+    .player-area {
+        padding: var(--spacing-2xl);
+    }
+    
+    .area-title {
+        font-size: var(--font-size-2xl);
+    }
+    
+    .hand-total {
+        font-size: var(--font-size-xl);
+        padding: var(--spacing-md) var(--spacing-lg);
+        min-width: 80px;
+    }
+    
+    .card-container {
+        min-height: 160px;
+        gap: var(--spacing-lg);
+    }
+    
+    /* コントロールボタンのレイアウト改善 */
+    .controls-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--spacing-lg);
+        max-width: 800px;
+    }
+    
+    .control-btn {
+        padding: var(--spacing-lg) var(--spacing-xl);
+        font-size: var(--font-size-lg);
+        min-height: 60px;
+    }
+    
+    .control-btn--new-game {
+        font-size: var(--font-size-xl);
+        padding: var(--spacing-xl) var(--spacing-2xl);
+    }
+    
+    /* フィードバック領域の改善 */
+    .feedback-area {
+        padding: var(--spacing-xl);
+        min-height: 120px;
+    }
+    
+    .feedback-message {
+        font-size: var(--font-size-xl);
+    }
+    
+    .strategy-hint {
+        font-size: var(--font-size-lg);
+        padding: var(--spacing-lg);
+    }
+    
+    .game-area {
+        padding: var(--spacing-md);
+        min-height: 500px;
+        height: calc(100vh - 120px);
+        max-height: 700px;
+        overflow: hidden;
+    }
+}
+
+/* ========================================
+   デスクトップ（1024px~1199px）
+   ======================================== */
+
+@media (min-width: 1024px) {
+    .game-container .container {
+        max-width: 1000px;
+    }
+    
+    /* 横並びレイアウトの導入 */
+    .game-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-2xl);
+        align-items: start;
+    }
+    
+    .dealer-area {
+        grid-column: 1 / -1;
+    }
+    
+    .player-area {
+        grid-column: 1 / -1;
+    }
+    
+    /* カードコンテナの拡張 */
+    .card-container {
+        min-height: 180px;
+        gap: var(--spacing-xl);
+    }
+    
+    /* より大きなコントロールボタン */
+    .controls-grid {
+        max-width: 1000px;
+    }
+    
+    .control-btn {
+        min-height: 70px;
+        font-size: var(--font-size-xl);
+    }
+    
+    /* ホバー効果の強化 */
+    .control-btn:hover:not(:disabled) {
+        transform: translateY(-3px);
+    }
+    
+    .nav-btn:hover {
+        transform: translateY(-2px);
+    }
+    
+    /* モーダルの改善 */
+    .modal-content {
+        max-width: 700px;
+    }
+}
+
+/* ========================================
+   大型デスクトップ（1200px以上）
+   ======================================== */
+
+@media (min-width: 1200px) {
+    .game-layout {
+        grid-template-columns: 340px 1fr;
+        gap: var(--spacing-xl);
+    }
+    
+    .info-panel {
+        padding: var(--spacing-lg);
+    }
+    
+    .panel-section {
+        padding: var(--spacing-md);
+    }
+    
+    .panel-title {
+        font-size: var(--font-size-base);
+    }
+    
+    .game-area {
+        padding: var(--spacing-xl);
+        min-height: 700px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
+    .game-controls {
+        order: 999; /* 最後に配置 */
+        margin-top: auto; /* 下部に押し下げ */
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: relative !important;
+        z-index: 10 !important;
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        padding: var(--spacing-md);
+        margin-bottom: 0; /* 下端に配置 */
+    }
+    
+    .controls-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--spacing-sm);
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    /* ゲームエリア内の要素配置 */
+    .dealer-zone,
+    .player-zone {
+        flex: 0 0 auto;
+    }
+    
+    .table-center {
+        flex: 0 0 auto;
+        margin: var(--spacing-lg) 0;
+    }
+    
+    .card {
+        width: 80px;
+        height: 115px;
+    }
+    
+    .card-rank,
+    .card-suit {
+        font-size: var(--font-size-base);
+    }
+    
+    .card-suit--large {
+        font-size: var(--font-size-2xl);
+    }
+    
+    .control-btn {
+        font-size: var(--font-size-sm);
+        padding: var(--spacing-md);
+    }
+    
+    .table-logo {
+        font-size: var(--font-size-3xl);
+    }
+}
+
+/* ========================================
+   ラージタブレット（1024px - 1199px）
+   ======================================== */
+@media (max-width: 1199px) and (min-width: 1024px) {
+    .container {
+        max-width: 1200px;
+    }
+    
+    .game-layout {
+        grid-template-columns: var(--info-panel-width-tablet) 1fr;
+        gap: var(--spacing-lg);
+    }
+    
+    .info-panel {
+        padding: var(--spacing-md);
+    }
+    
+    .panel-section {
+        padding: var(--spacing-sm);
+    }
+    
+    .game-area {
+        padding: var(--spacing-lg);
+        min-height: 550px;
+    }
+    
+    .card {
+        width: 75px;
+        height: 108px;
+    }
+    
+    .zone-title {
+        font-size: var(--font-size-base);
+    }
+    
+    .hand-total {
+        font-size: var(--font-size-base);
+        min-width: 55px;
+    }
+}
+
+/* ========================================
+   タブレット縦向き（768px - 1023px）
+   ======================================== */
+@media (max-width: 1023px) and (min-width: 768px) {
+    .header__title {
+        font-size: var(--font-size-lg);
+    }
+    
+    .header__nav {
+        gap: var(--spacing-xs);
+    }
+    
+    .nav-btn {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: var(--font-size-xs);
+    }
+    
+    .game-layout {
+        grid-template-columns: 260px 1fr;
+        gap: var(--spacing-md);
+        min-height: 500px;
+    }
+    
+    .info-panel {
+        padding: var(--spacing-sm);
+        gap: var(--spacing-sm);
+    }
+    
+    .panel-section {
+        padding: var(--spacing-xs);
+    }
+    
+    .panel-title {
+        font-size: var(--font-size-xs);
+        margin-bottom: var(--spacing-xs);
+    }
+    
+    .bet-info__item,
+    .strategy-info__item {
+        padding: 2px var(--spacing-xs);
+    }
+    
+    .bet-info__item .label,
+    .strategy-info__item .label {
+        font-size: 10px;
+    }
+    
+    .bet-info__item .value,
+    .strategy-info__item .value {
+        font-size: var(--font-size-xs);
+    }
+    
+    .bet-btn {
+        padding: 2px var(--spacing-xs);
+        font-size: 10px;
+    }
+    
+    .control-btn {
+        padding: var(--spacing-xs);
+        font-size: 10px;
+        line-height: 1.1;
+    }
+    
+    .shortcut {
+        font-size: 8px;
+    }
+    
+    .game-area {
+        padding: var(--spacing-md);
+        min-height: 450px;
+    }
+    
+    .player-zone {
+        padding: var(--spacing-sm);
+    }
+    
+    .zone-title {
+        font-size: var(--font-size-sm);
+    }
+    
+    .hand-total {
+        font-size: var(--font-size-sm);
+        padding: 2px var(--spacing-xs);
+        min-width: 45px;
+    }
+    
+    .card-container {
+        min-height: 100px;
+        padding: var(--spacing-xs);
+    }
+    
+    .card {
+        width: 65px;
+        height: 90px;
+    }
+    
+    .table-logo {
+        font-size: var(--font-size-lg);
+    }
+    
+    .table-info {
+        font-size: var(--font-size-xs);
+    }
+    
+    .feedback-area {
+        min-height: 60px;
+        padding: var(--spacing-xs);
+    }
+    
+    .feedback-message,
+    .strategy-hint {
+        font-size: 10px;
+        line-height: 1.2;
+    }
+    
+    .game-message {
+        font-size: var(--font-size-xs);
+    }
+}
+
+/* ========================================
+   タブレット横向き・大画面モバイル（576px - 767px）
+   ======================================== */
+@media (max-width: 767px) and (min-width: 576px) {
+    .game-container {
+        padding: var(--spacing-sm) 0;
+    }
+    
+    .game-layout {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+        min-height: auto;
+    }
+    
+    .info-panel {
+        position: static;
+        order: 2;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: var(--spacing-sm);
+        padding: var(--spacing-sm);
+    }
+    
+    .panel-section {
+        flex: 1;
+        min-width: 140px;
+        margin-bottom: 0;
+    }
+    
+    .bet-section {
+        flex-basis: 100%;
+        order: 1;
+    }
+    
+    .strategy-section {
+        flex: 1;
+        order: 2;
+    }
+    
+    .game-controls {
+        flex-basis: 100%;
+        order: 3;
+    }
+    
+    .feedback-section {
+        flex-basis: 100%;
+        order: 4;
+    }
+    
+    .controls-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2px;
+    }
+    
+    .control-btn--new-game {
+        grid-column: 1 / -1;
+        margin-top: var(--spacing-xs);
+    }
+    
+    .game-area {
+        order: 1;
+        padding: var(--spacing-sm);
+        min-height: 350px;
+        height: calc(100vh - 160px);
+        max-height: 500px;
+        overflow: hidden;
+    }
+    
+    .player-zone {
+        padding: var(--spacing-xs);
+        margin-bottom: var(--spacing-xs);
+        margin-top: var(--spacing-xs);
+    }
+    
+    .zone-header {
+        margin-bottom: var(--spacing-xs);
+    }
+    
+    .card-container {
+        min-height: 80px;
+        max-height: 120px;
+        gap: var(--spacing-xs);
+        overflow: hidden;
+    }
+    
+    .card {
+        width: 55px;
+        height: 80px;
+    }
+    
+    .card-rank,
+    .card-suit {
+        font-size: 10px;
+    }
+    
+    .card-suit--large {
+        font-size: var(--font-size-sm);
+    }
+    
+    .table-center {
+        padding: var(--spacing-xs);
+    }
+    
+    .table-logo {
+        font-size: var(--font-size-base);
+        margin-bottom: 2px;
+    }
+    
+    .table-info {
+        font-size: 10px;
+    }
+}
+
+/* ========================================
+   モバイル（575px以下）
+   ======================================== */
+@media (max-width: 575px) {
+    .header {
+        padding: var(--spacing-xs) 0;
+    }
+    
+    .header .container {
+        flex-direction: column;
+        gap: var(--spacing-xs);
+    }
+    
+    .header__title {
+        font-size: var(--font-size-base);
+    }
+    
+    .header__nav {
+        gap: var(--spacing-xs);
+    }
+    
+    .nav-btn {
+        padding: var(--spacing-xs);
+        font-size: 10px;
+    }
+    
+    .game-container {
+        padding: var(--spacing-xs) 0;
+    }
+    
+    .container {
+        padding: 0 var(--spacing-xs);
+    }
+    
+    .game-layout {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-xs);
+    }
+    
+    .info-panel {
+        position: static;
+        order: 2;
+        flex-direction: column;
+        gap: var(--spacing-xs);
+        padding: var(--spacing-xs);
+        background: var(--color-bg-panel);
+        border: 2px solid var(--color-border-light);
+        border-radius: var(--radius-lg);
+        margin-top: var(--spacing-xs);
+    }
+    
+    .panel-section {
+        margin-bottom: 0;
+        padding: var(--spacing-xs);
+    }
+    
+    .panel-title {
+        font-size: 10px;
+        margin-bottom: 2px;
+        padding-bottom: 2px;
+    }
+    
+    /* ベット情報をコンパクトに */
+    .bet-info {
+        gap: 2px;
+        margin-bottom: var(--spacing-xs);
+    }
+    
+    .bet-info__item {
+        padding: 2px var(--spacing-xs);
+    }
+    
+    .bet-info__item .label {
+        font-size: 9px;
+    }
+    
+    .bet-info__item .value {
+        font-size: 10px;
+    }
+    
+    .bet-amounts {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2px;
+    }
+    
+    .bet-btn {
+        padding: var(--spacing-xs);
+        font-size: 9px;
+    }
+    
+    .custom-bet-input {
+        padding: 2px var(--spacing-xs);
+        font-size: 10px;
+    }
+    
+    .bet-action-buttons {
+        gap: 2px;
+    }
+    
+    /* 戦略情報をコンパクトに */
+    .strategy-info {
+        gap: 2px;
+    }
+    
+    .strategy-info__item {
+        padding: 2px var(--spacing-xs);
+    }
+    
+    .strategy-info__item .label {
+        font-size: 9px;
+    }
+    
+    .strategy-info__item .value {
+        font-size: 10px;
+    }
+    
+    /* コントロールボタンをコンパクトに */
+    .game-controls {
+        display: block;
+        order: 0;
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        padding: var(--spacing-xs);
+        margin-bottom: var(--spacing-xs);
+        position: relative;
+        z-index: 10;
+        width: 100%;
+        visibility: visible;
+        opacity: 1;
+    }
+    
+    .controls-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-xs);
+        margin-bottom: var(--spacing-xs);
+        width: 100%;
+    }
+    
+    .control-btn {
+        display: block;
+        padding: var(--spacing-sm);
+        font-size: var(--font-size-xs);
+        line-height: 1.2;
+        min-height: 40px;
+        background: var(--color-primary-light);
+        color: var(--color-text-primary);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-sm);
+        font-weight: var(--font-weight-medium);
+        text-align: center;
+        cursor: pointer;
+        visibility: visible;
+        opacity: 1;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .control-btn--new-game {
+        grid-column: 1 / -1;
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-bold);
+        background: var(--color-success);
+        color: var(--color-text-dark);
+        min-height: 45px;
+        margin-top: var(--spacing-xs);
+        display: block;
+        visibility: visible;
+        opacity: 1;
+    }
+    
+    .shortcut {
+        font-size: 7px;
+        opacity: 0.6;
+    }
+    
+    /* ゲームエリアをコンパクトに */
+    .game-area {
+        order: 1;
+        padding: var(--spacing-xs);
+        min-height: 250px;
+        height: auto;
+        max-height: none;
+        overflow: visible;
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-xs);
+    }
+    
+    .player-zone {
+        padding: var(--spacing-xs);
+        margin-bottom: 2px;
+        margin-top: 2px;
+    }
+    
+    .zone-header {
+        margin-bottom: 2px;
+    }
+    
+    .zone-title {
+        font-size: 11px;
+    }
+    
+    .hand-total {
+        font-size: 11px;
+        padding: 2px var(--spacing-xs);
+        min-width: 35px;
+    }
+    
+    .card-container {
+        min-height: 60px;
+        max-height: 100px;
+        padding: 2px;
+        gap: 2px;
+        overflow: hidden;
+    }
+    
+    .card {
+        width: 45px;
+        height: 65px;
+    }
+    
+    .card-rank,
+    .card-suit {
+        font-size: 8px;
+    }
+    
+    .card-corner {
+        padding: 2px;
+        font-size: 8px;
+    }
+    
+    .card-suit--large {
+        font-size: 12px;
+    }
+    
+    .table-center {
+        padding: 2px;
+    }
+    
+    .table-logo {
+        font-size: var(--font-size-sm);
+        margin-bottom: 1px;
+    }
+    
+    .table-info {
+        font-size: 8px;
+    }
+    
+    /* フィードバックエリアをコンパクトに */
+    .feedback-area {
+        min-height: 50px;
+        padding: var(--spacing-xs);
+    }
+    
+    .feedback-message {
+        font-size: 9px;
+        line-height: 1.2;
+        margin-bottom: 2px;
+    }
+    
+    .strategy-hint {
+        font-size: 8px;
+        line-height: 1.1;
+        padding: 2px var(--spacing-xs);
+    }
+    
+    .game-message {
+        font-size: 10px;
+        margin-bottom: 2px;
+    }
+    
+    /* フッターをコンパクトに */
+    .footer {
+        padding: var(--spacing-xs);
+        font-size: 8px;
+    }
+}
+
+/* ========================================
+   極小画面（480px以下）
+   ======================================== */
+@media (max-width: 480px) {
+    .header__title {
+        font-size: var(--font-size-sm);
+    }
+    
+    .game-area {
+        min-height: 240px;
+    }
+    
+    .card {
+        width: 40px;
+        height: 58px;
+    }
+    
+    .card-rank,
+    .card-suit {
+        font-size: 7px;
+    }
+    
+    .card-corner {
+        padding: 1px;
+        font-size: 7px;
+    }
+    
+    .card-suit--large {
+        font-size: 10px;
+    }
+    
+    .table-logo {
+        font-size: var(--font-size-xs);
+    }
+    
+    .table-info {
+        font-size: 7px;
+    }
+    
+    .zone-title {
+        font-size: 10px;
+    }
+    
+    .hand-total {
+        font-size: 10px;
+        min-width: 30px;
+    }
+    
+    .control-btn {
+        font-size: 8px;
+        padding: 2px;
+    }
+    
+    .shortcut {
+        display: none;
+    }
+}
+
+/* ========================================
+   横向きモバイル（landscape）
+   ======================================== */
+@media (max-width: 767px) and (orientation: landscape) {
+    .game-container {
+        padding: var(--spacing-xs) 0;
+    }
+    
+    .game-layout {
+        grid-template-columns: 240px 1fr;
+        gap: var(--spacing-xs);
+    }
+    
+    .info-panel {
+        order: 1;
+        flex-direction: column;
+        gap: var(--spacing-xs);
+        height: fit-content;
+        max-height: calc(100vh - 100px);
+        overflow-y: auto;
+    }
+    
+    .panel-section {
+        flex: none;
+    }
+    
+    .game-controls {
+        order: 1;
+    }
+    
+    .bet-section {
+        order: 2;
+    }
+    
+    .strategy-section {
+        order: 3;
+    }
+    
+    .feedback-section {
+        order: 4;
+    }
+    
+    .game-area {
+        order: 2;
+        min-height: calc(100vh - 100px);
+        height: calc(100vh - 100px);
+        max-height: calc(100vh - 100px);
+        overflow: hidden;
+    }
+    
+    .card-container {
+        min-height: 70px;
+        max-height: 90px;
+        overflow: hidden;
+    }
+    
+    .table-center {
+        padding: var(--spacing-xs);
+    }
+}
+
+/* ========================================
+   高解像度ディスプレイ対応
+   ======================================== */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .card {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+    
+    .table-logo {
+        text-rendering: optimizeLegibility;
+    }
+}
+
+/* ========================================
+   ダークモード対応（将来的な拡張用）
+   ======================================== */
+@media (prefers-color-scheme: dark) {
+    /* 既存のカラーパレットを使用しているため、特別な調整は不要 */
+    :root {
+        --color-bg-main: #0a2f14;
+        --color-bg-panel: #1a4329;
+    }
+}
+
+/* ========================================
+   モーション設定への配慮
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .card:hover {
+        transform: none;
+    }
+    
+    .control-btn:hover:not(:disabled) {
+        transform: none;
+    }
+}
+
+/* ========================================
+   プリント用スタイル
+   ======================================== */
+@media print {
+    .header,
+    .footer,
+    .nav-btn,
+    .control-btn,
+    .bet-controls,
+    .feedback-area {
+        display: none !important;
+    }
+    
+    .game-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .info-panel {
+        display: none;
+    }
+    
+    .game-area {
+        border: 2px solid #000;
+        box-shadow: none;
+        background: #fff;
+        color: #000;
+    }
+    
+    .card {
+        border: 1px solid #000;
+        box-shadow: none;
+    }
+}
+
+/* ========================================
+   画面回転対応の強化 - Phase 6
+   ======================================== */
+
+/* ポートレート（縦画面）専用調整 */
+@media (orientation: portrait) {
+    .game-container {
+        min-height: calc(100vh - var(--header-height, 80px));
+    }
+    
+    .game-layout {
+        flex-direction: column;
+        gap: var(--spacing-lg);
+    }
+    
+    .card-container {
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 100%;
+    }
+    
+    /* 縦画面での統計ダッシュボード最適化 */
+    .statistics-dashboard .dashboard-content {
+        grid-template-columns: 1fr;
+        padding: var(--spacing-md);
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    }
+}
+
+/* ランドスケープ（横画面）専用調整 */
+@media (orientation: landscape) {
+    .game-layout {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    
+    /* 横画面でのカード配置最適化 */
+    .card-container {
+        flex-wrap: wrap;
+        justify-content: center;
+        overflow: hidden;
+        max-height: 140px;
+        padding-bottom: var(--spacing-sm);
+        gap: var(--spacing-xs);
+    }
+    
+    .card {
+        flex-shrink: 0;
+    }
+    
+    /* 横画面での統計ダッシュボード最適化 */
+    .statistics-dashboard .dashboard-content {
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    }
+}
+
+/* ========================================
+   新しい中間ブレークポイント - Phase 6
+   ======================================== */
+
+/* 大型スマートフォン（414px~575px） */
+@media (min-width: 414px) and (max-width: 575px) {
+    .controls-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-md);
+    }
+    
+    .control-btn {
+        padding: var(--spacing-md);
+        font-size: var(--font-size-base);
+    }
+    
+    .card-container {
+        gap: var(--spacing-sm);
+        min-height: 130px;
+        max-height: 150px;
+        overflow: hidden;
+    }
+    
+    .game-info {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-sm);
+    }
+}
+
+/* 小型タブレット（600px~767px） */
+@media (min-width: 600px) and (max-width: 767px) {
+    .game-layout {
+        grid-template-columns: 1fr 2fr;
+        grid-template-rows: auto 1fr;
+    }
+    
+    .info-panel {
+        grid-row: 1 / -1;
+    }
+    
+    .game-area {
+        grid-column: 2;
+        grid-row: 1 / -1;
+    }
+    
+    .controls-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+    }
+}
+
+/* 大型タブレット（900px~1023px） */
+@media (min-width: 900px) and (max-width: 1023px) {
+    .game-container .container {
+        max-width: 880px;
+    }
+    
+    .game-layout {
+        grid-template-columns: 300px 1fr;
+        gap: var(--spacing-2xl);
+    }
+    
+    .card-container {
+        min-height: 180px;
+        max-height: 200px;
+        gap: var(--spacing-xl);
+        overflow: hidden;
+    }
+    
+    .card {
+        width: 80px;
+        height: 112px;
+    }
+}
+
+/* ========================================
+   アスペクト比に基づく最適化 - Phase 6
+   ======================================== */
+
+/* 超ワイド画面（21:9など）対応 */
+@media (min-aspect-ratio: 21/9) {
+    .game-container .container {
+        max-width: 1400px;
+    }
+    
+    .game-layout {
+        grid-template-columns: 300px 1fr 300px;
+        grid-template-rows: auto 1fr;
+        grid-template-areas: 
+            "info game feedback"
+            "info game feedback";
+        gap: var(--spacing-xl);
+    }
+    
+    .info-panel { 
+        grid-area: info; 
+        align-self: start;
+    }
+    .game-area { 
+        grid-area: game; 
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .game-controls { 
+        order: 999; /* 最後に配置 */
+        margin-top: auto; /* 下部に配置 */
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: relative !important;
+        z-index: 10 !important;
+    }
+    .feedback-area { 
+        grid-area: feedback; 
+        align-self: start;
+    }
+    
+    /* ゲームエリア内のレイアウト調整 */
+    .dealer-zone,
+    .player-zone {
+        flex: 0 0 auto;
+    }
+    
+    .table-center {
+        flex: 0 0 auto;
+        margin: var(--spacing-md) 0;
+    }
+}
+
+/* 正方形に近い画面対応 */
+@media (min-aspect-ratio: 3/4) and (max-aspect-ratio: 4/3) {
+    .game-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto 1fr auto;
+        height: 100vh;
+    }
+    
+    .dealer-area { grid-column: 1 / -1; }
+    .player-area { grid-column: 1 / -1; }
+    .game-controls { grid-column: 1 / -1; }
+}
+
+/* ========================================
+   フォールドデバイス対応 - Phase 6
+   ======================================== */
+
+/* デュアルスクリーン・フォールド対応 */
+@media (spanning: single-fold-vertical) {
+    .game-layout {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr;
+        gap: 0;
+    }
+    
+    .info-panel,
+    .game-controls {
+        grid-column: 1;
+    }
+    
+    .game-area {
+        grid-column: 2;
+    }
+}
+
+@media (spanning: single-fold-horizontal) {
+    .game-layout {
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    
+    .dealer-area {
+        grid-row: 1;
+    }
+    
+    .player-area,
+    .game-controls {
+        grid-row: 2;
+    }
+}
+
+/* ========================================
+   高解像度ディスプレイ最適化 - Phase 6
+   ======================================== */
+
+/* 4K・8K対応 */
+@media (min-width: 2560px) {
+    :root {
+        --font-size-xs: 0.875rem;
+        --font-size-sm: 1rem;
+        --font-size-base: 1.125rem;
+        --font-size-lg: 1.25rem;
+        --font-size-xl: 1.5rem;
+        --font-size-2xl: 1.875rem;
+        --font-size-3xl: 2.25rem;
+    }
+    
+    .game-container .container {
+        max-width: 2000px;
+    }
+    
+    .card {
+        width: 120px;
+        height: 168px;
+    }
+    
+    .control-btn {
+        padding: var(--spacing-xl) var(--spacing-2xl);
+        font-size: var(--font-size-xl);
+        min-height: 80px;
+    }
+}
+
+/* ========================================
+   アクセシビリティ考慮の最適化 - Phase 6
+   ======================================== */
+
+/* 大きなフォントサイズ設定時の対応 */
+@media (min-width: 768px) and (prefers-color-scheme: dark) {
+    .game-area {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: var(--radius-lg);
+    }
+    
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
+}
+
+/* 高コントラストモード対応 */
+@media (prefers-contrast: high) {
+    .card {
+        border: 2px solid var(--color-text);
+    }
+    
+    .control-btn {
+        border: 2px solid var(--color-primary);
+    }
+    
+    .hand-total {
+        border: 2px solid var(--color-accent);
+        background: var(--color-bg-contrast);
+    }
+}
+
+/* 透明度を減らす設定時の対応 */
+@media (prefers-reduced-transparency: reduce) {
+    .modal {
+        background: var(--color-bg-primary);
+        backdrop-filter: none;
+    }
+    
+    .game-area {
+        background: var(--color-bg-secondary);
+    }
+    
+    .card {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    }
+}
+
+/* ========================================
+   デバイス固有の最適化 - Phase 6
+   ======================================== */
+
+/* iPhone SE (1st gen) サイズ対応 */
+@media (max-width: 320px) and (max-height: 568px) {
+    .game-container {
+        padding: var(--spacing-xs) 0;
+    }
+    
+    .controls-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-xs);
+    }
+    
+    .control-btn {
+        padding: var(--spacing-xs);
+        font-size: var(--font-size-xs);
+        min-height: 36px;
+    }
+    
+    .card {
+        width: 35px;
+        height: 49px;
+    }
+}
+
+/* iPad Pro 12.9" 対応 */
+@media (min-width: 1024px) and (max-width: 1366px) and (orientation: portrait) {
+    .game-layout {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-xl);
+    }
+    
+    .card-container {
+        justify-content: center;
+        gap: var(--spacing-lg);
+    }
+    
+    .card {
+        width: 100px;
+        height: 140px;
+    }
+    
+    .controls-grid {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 800px;
+        margin: 0 auto;
+    }
+}
+
+/* Surface Duo 対応 */
+@media (min-width: 540px) and (max-width: 720px) and (min-height: 720px) {
+    .game-layout {
+        grid-template-columns: 1fr 1fr;
+        height: 100vh;
+    }
+    
+    .info-panel {
+        grid-column: 1;
+        grid-row: 1 / -1;
+    }
+    
+    .game-area {
+        grid-column: 2;
+        grid-row: 1 / -1;
+    }
+} 

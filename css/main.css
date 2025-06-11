@@ -1,0 +1,1556 @@
+/* ========================================
+   メインスタイルシート - ブラックジャック練習アプリ
+   ======================================== */
+
+/* CSS カスタムプロパティ（変数） */
+:root {
+    /* カラーパレット */
+    --color-primary: #1a472a;
+    --color-primary-light: #2d5a3d;
+    --color-primary-dark: #0f2e1a;
+    --color-secondary: #d4af37;
+    --color-accent: #ff6b6b;
+    --color-success: #51cf66;
+    --color-warning: #ffd43b;
+    --color-error: #ff6b6b;
+    
+    --color-bg-main: #0d3b17;
+    --color-bg-table: #1a472a;
+    --color-bg-card: #ffffff;
+    --color-bg-modal: rgba(0, 0, 0, 0.8);
+    --color-bg-panel: #1e5332;
+    
+    --color-text-primary: #ffffff;
+    --color-text-secondary: #cccccc;
+    --color-text-dark: #333333;
+    --color-text-muted: #888888;
+    
+    --color-border: #2d5a3d;
+    --color-border-light: #4a7c59;
+    
+    /* タイポグラフィ */
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 1.875rem;
+    
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    
+    /* スペーシング */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    
+    /* ボーダーラディウス */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+    
+    /* シャドウ */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.2);
+    
+    /* トランジション */
+    --transition-fast: 0.15s ease;
+    --transition-base: 0.25s ease;
+    --transition-slow: 0.4s ease;
+    
+    /* レイアウト寸法 */
+    --info-panel-width: 320px;
+    --info-panel-width-tablet: 280px;
+}
+
+/* ========================================
+   ベースレイアウト
+   ======================================== */
+
+body {
+    background: linear-gradient(135deg, var(--color-bg-main) 0%, var(--color-primary-dark) 100%);
+    color: var(--color-text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    width: 100%;
+}
+
+/* ========================================
+   ヘッダー
+   ======================================== */
+
+.header {
+    background: var(--color-primary);
+    border-bottom: 2px solid var(--color-secondary);
+    padding: var(--spacing-sm) 0;
+    box-shadow: var(--shadow-md);
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.header__title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.header__nav {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.nav-btn {
+    background: var(--color-primary-light);
+    color: var(--color-text-primary);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    transition: all var(--transition-base);
+    border: 1px solid transparent;
+}
+
+.nav-btn:hover {
+    background: var(--color-secondary);
+    color: var(--color-text-dark);
+    transform: translateY(-1px);
+}
+
+.nav-btn:active {
+    transform: translateY(0);
+}
+
+/* ========================================
+   ゲームコンテナ
+   ======================================== */
+
+.game-container {
+    flex: 1;
+    padding: var(--spacing-md) 0;
+    min-height: auto;
+}
+
+.game-layout {
+    display: grid;
+    grid-template-columns: var(--info-panel-width) 1fr;
+    gap: var(--spacing-lg);
+    min-height: auto;
+}
+
+/* ========================================
+   左側情報パネル
+   ======================================== */
+
+.info-panel {
+    background: var(--color-bg-panel);
+    border: 2px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    height: fit-content;
+    position: sticky;
+    top: var(--spacing-md);
+}
+
+.panel-section {
+    background: var(--color-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-sm);
+    box-shadow: var(--shadow-sm);
+}
+
+.panel-title {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-secondary);
+    text-align: center;
+    margin-bottom: var(--spacing-sm);
+    padding-bottom: var(--spacing-xs);
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* ========================================
+   右側ゲーム領域
+   ======================================== */
+
+.game-area {
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-md);
+    background-color: var(--color-bg-table);
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--color-border);
+    height: calc(100vh - 120px);
+    min-height: 600px;
+    position: relative;
+    overflow: hidden;
+}
+
+.game-area::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+/* ========================================
+   プレイヤーゾーン
+   ======================================== */
+
+.player-zone {
+    background: rgba(212, 175, 55, 0.1);
+    position: relative;
+    z-index: 1;
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    flex-shrink: 0;
+}
+
+.dealer-zone {
+    /* 削除: margin-bottom: var(--spacing-md); */
+}
+
+.player-zone--main {
+    flex-grow: 1;
+    background: rgba(212, 175, 55, 0.1);
+    border-color: var(--color-secondary);
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+}
+
+.zone-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-sm);
+}
+
+.zone-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.hand-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.hand-total {
+    background: var(--color-secondary);
+    color: var(--color-text-dark);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    min-width: 60px;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+}
+
+/* ========================================
+   テーブル中央装飾
+   ======================================== */
+
+.table-center {
+    text-align: center;
+    padding: var(--spacing-sm) 0;
+    color: var(--color-secondary);
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+}
+
+.table-logo {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    opacity: 0.7;
+}
+
+/* ========================================
+   ゲーム操作
+   ======================================== */
+
+.game-controls {
+    width: 100%;
+    max-width: 500px;
+    margin: var(--spacing-sm) auto 0;
+    padding: 10px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+.action-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    width: 100%;
+}
+
+.control-btn {
+    padding: 12px 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: #3e8d63;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+}
+
+.control-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.control-btn:disabled {
+    background-color: #555;
+    color: #999;
+    cursor: not-allowed;
+    border-color: #666;
+}
+
+.control-btn--new-game {
+    width: 100%;
+    background-color: #f39c12;
+    border-color: #e67e22;
+    display: block;
+}
+
+.control-btn--new-game:hover:not(:disabled) {
+    background-color: #e67e22;
+}
+
+.hotkey {
+    font-size: 0.8em;
+    opacity: 0.8;
+    margin-left: 5px;
+}
+
+/* ========================================
+   カードコンテナ
+   ======================================== */
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(5px);
+    overflow-y: auto;
+    position: relative;
+}
+
+.card-container:has(.card) {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* カードが多数ある場合の自動サイズ調整 */
+.card-container:has(.card:nth-child(6)) .card {
+    width: 60px;
+    height: 85px;
+}
+
+.card-container:has(.card:nth-child(8)) .card {
+    width: 50px;
+    height: 70px;
+}
+
+.card-container:has(.card:nth-child(10)) .card {
+    width: 45px;
+    height: 63px;
+}
+
+.card-container:has(.card:nth-child(6)) .card-rank,
+.card-container:has(.card:nth-child(6)) .card-suit {
+    font-size: 10px;
+}
+
+.card-container:has(.card:nth-child(8)) .card-rank,
+.card-container:has(.card:nth-child(8)) .card-suit {
+    font-size: 8px;
+}
+
+.card-container:has(.card:nth-child(10)) .card-rank,
+.card-container:has(.card:nth-child(10)) .card-suit {
+    font-size: 7px;
+}
+
+/* ========================================
+   ベット関連
+   ======================================== */
+
+.bet-info {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+}
+
+.bet-info__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-xs);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-sm);
+}
+
+.bet-info__item .label {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-medium);
+}
+
+.bet-info__item .value {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+}
+
+.chip-value {
+    color: var(--color-success);
+}
+
+.profit-value {
+    font-weight: var(--font-weight-bold);
+}
+
+.profit-positive {
+    color: var(--color-success);
+}
+
+.profit-negative {
+    color: var(--color-error);
+}
+
+.bet-controls {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.bet-amounts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-xs);
+}
+
+.bet-btn {
+    background: var(--color-primary-light);
+    color: var(--color-text-primary);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    transition: all var(--transition-base);
+    border: 1px solid var(--color-border);
+}
+
+.bet-btn:hover {
+    background: var(--color-secondary);
+    color: var(--color-text-dark);
+    transform: translateY(-1px);
+}
+
+.bet-btn.selected {
+    background: var(--color-secondary);
+    color: var(--color-text-dark);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+}
+
+.bet-btn--custom {
+    grid-column: 1 / -1;
+    background: var(--color-primary-dark);
+}
+
+.bet-btn--custom:hover {
+    background: var(--color-accent);
+}
+
+.custom-bet-input {
+    background: var(--color-primary-dark);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-xs);
+    width: 100%;
+}
+
+.custom-bet-input:focus {
+    outline: none;
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+}
+
+.bet-action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+/* ========================================
+   戦略評価関連
+   ======================================== */
+
+.strategy-info {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xs);
+}
+
+.strategy-info__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-xs);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-sm);
+}
+
+.strategy-info__item .label {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-medium);
+}
+
+.strategy-info__item .value {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+}
+
+/* ========================================
+   コントロールボタン
+   ======================================== */
+
+.control-btn:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left var(--transition-base);
+}
+
+.control-btn:hover:not(:disabled):before {
+    left: 100%;
+}
+
+.control-btn--primary {
+    background: var(--color-secondary);
+    color: var(--color-text-dark);
+}
+
+.control-btn--secondary {
+    background: var(--color-primary);
+}
+
+.control-btn--tertiary {
+    background: var(--color-primary-dark);
+}
+
+.control-btn:disabled {
+    background: var(--color-primary-dark);
+    color: var(--color-text-muted);
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.shortcut {
+    font-size: var(--font-size-xs);
+    opacity: 0.7;
+    font-weight: var(--font-weight-normal);
+}
+
+/* ========================================
+   フィードバック
+   ======================================== */
+
+.feedback-area {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-sm);
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+}
+
+/* 戦略評価専用スタイル */
+.feedback-area.strategy-feedback--all-correct {
+    background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 200, 0, 0.05));
+    border: 2px solid var(--color-success);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+}
+
+.feedback-area.strategy-feedback--all-incorrect {
+    background: linear-gradient(135deg, rgba(255, 0, 0, 0.1), rgba(200, 0, 0, 0.05));
+    border: 2px solid var(--color-error);
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+}
+
+.feedback-area.strategy-feedback--mixed {
+    background: linear-gradient(135deg, rgba(255, 255, 0, 0.1), rgba(255, 200, 0, 0.05));
+    border: 2px solid var(--color-warning);
+    box-shadow: 0 0 15px rgba(255, 255, 0, 0.2);
+}
+
+.feedback-header {
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.feedback-title {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-bold);
+    margin: 0 0 var(--spacing-xs) 0;
+}
+
+.feedback-subtitle {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    margin: 0;
+    opacity: 0.8;
+}
+
+.feedback-content {
+    width: 100%;
+}
+
+.feedback-message {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-xs);
+    line-height: 1.4;
+}
+
+.strategy-hint {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    line-height: 1.3;
+    padding: var(--spacing-xs);
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--color-secondary);
+}
+
+.feedback-area--correct {
+    border-left: 3px solid var(--color-success);
+}
+
+.feedback-area--incorrect {
+    border-left: 3px solid var(--color-error);
+}
+
+.feedback-area--info {
+    border-left: 3px solid var(--color-secondary);
+}
+
+.strategy-perfect {
+    color: var(--color-success);
+    border-left-color: var(--color-success);
+}
+
+.strategy-good {
+    color: var(--color-success);
+    border-left-color: var(--color-success);
+}
+
+.strategy-needs-improvement {
+    color: var(--color-warning);
+    border-left-color: var(--color-warning);
+}
+
+.strategy-poor {
+    color: var(--color-error);
+    border-left-color: var(--color-error);
+}
+
+.game-message {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-xs);
+    text-align: center;
+}
+
+.result-win .game-message {
+    color: var(--color-success);
+    font-weight: var(--font-weight-bold);
+}
+
+.result-blackjack .game-message {
+    color: var(--color-secondary);
+    font-weight: var(--font-weight-bold);
+}
+
+.result-lose .game-message,
+.result-bust .game-message {
+    color: var(--color-error);
+    font-weight: var(--font-weight-bold);
+}
+
+.result-push .game-message {
+    color: var(--color-warning);
+    font-weight: var(--font-weight-bold);
+}
+
+/* ========================================
+   フッター
+   ======================================== */
+
+.footer {
+    background: var(--color-primary-dark);
+    color: var(--color-text-secondary);
+    text-align: center;
+    padding: var(--spacing-sm);
+    font-size: var(--font-size-xs);
+}
+
+/* ========================================
+   モーダル
+   ======================================== */
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-bg-modal);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--color-primary);
+    border: 2px solid var(--color-secondary);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal.show .modal-content {
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.modal-header h3 {
+    color: var(--color-secondary);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-2xl);
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-base);
+}
+
+.modal-close:hover {
+    background: var(--color-error);
+    color: var(--color-text-primary);
+}
+
+.modal-body {
+    color: var(--color-text-primary);
+    line-height: 1.6;
+}
+
+/* ========================================
+   ユーティリティクラス
+   ======================================== */
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+/* ========================================
+   カードスタイル
+   ======================================== */
+
+.card {
+    width: 70px;
+    height: 100px;
+    background: var(--color-bg-card);
+    border: 2px solid var(--color-text-dark);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+}
+
+.card-face {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-front {
+    transform: rotateY(0deg);
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    background: var(--color-primary);
+}
+
+.card-pattern {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 80%;
+    background-image: 
+        repeating-linear-gradient(
+            45deg,
+            var(--color-secondary),
+            var(--color-secondary) 2px,
+            transparent 2px,
+            transparent 8px
+        );
+    border-radius: var(--radius-sm);
+    opacity: 0.3;
+}
+
+.card-corner {
+    padding: var(--spacing-xs);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    line-height: 1;
+}
+
+.card-corner--top {
+    align-self: flex-start;
+}
+
+.card-corner--bottom {
+    align-self: flex-end;
+    transform: rotate(180deg);
+}
+
+.card-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.card-rank {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+}
+
+.card-suit {
+    font-size: var(--font-size-sm);
+}
+
+.card-suit--large {
+    font-size: var(--font-size-xl);
+}
+
+.card-red {
+    color: #dc3545;
+}
+
+.card-red .card-rank,
+.card-red .card-suit {
+    color: #dc3545;
+}
+
+.card-black {
+    color: #333333;
+}
+
+.card-black .card-rank,
+.card-black .card-suit {
+    color: #333333;
+}
+
+.card.card-back {
+    background: var(--color-primary);
+    border-color: var(--color-secondary);
+}
+
+.card.card-back .card-pattern {
+    background-image: 
+        repeating-linear-gradient(
+            45deg,
+            var(--color-secondary),
+            var(--color-secondary) 3px,
+            var(--color-primary-light) 3px,
+            var(--color-primary-light) 12px
+        ),
+        repeating-linear-gradient(
+            -45deg,
+            transparent,
+            transparent 6px,
+            rgba(212, 175, 55, 0.2) 6px,
+            rgba(212, 175, 55, 0.2) 12px
+        );
+    opacity: 1;
+}
+
+/* ホバー効果 */
+@media (hover: hover) {
+    .card:hover {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        z-index: 10;
+    }
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .card:active {
+        transform: scale(0.95);
+    }
+}
+
+/* ========================================
+   キーフレーム（アニメーション）
+   ======================================== */
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+    }
+}
+
+/* ========================================
+   レスポンシブ対応（基本）
+   ======================================== */
+
+@media (max-width: 1024px) {
+    .game-layout {
+        grid-template-columns: var(--info-panel-width-tablet) 1fr;
+    }
+    
+    .info-panel {
+        width: var(--info-panel-width-tablet);
+    }
+    
+    .panel-section {
+        padding: var(--spacing-xs);
+    }
+    
+    .game-area {
+        padding: var(--spacing-md);
+        min-height: 500px;
+        height: auto;
+        overflow: visible;
+    }
+    
+    .controls-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-xs);
+    }
+    
+    .control-btn {
+        font-size: var(--font-size-xs);
+        padding: var(--spacing-xs);
+    }
+}
+
+@media (max-width: 768px) {
+    .game-layout {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+    }
+    
+    .info-panel {
+        position: static;
+        order: 3;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    
+    .panel-section {
+        flex: 1;
+        min-width: 150px;
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    .bet-section {
+        flex-basis: 100%;
+        order: 1;
+    }
+    
+    .strategy-section {
+        flex: 1;
+        order: 2;
+    }
+    
+    .feedback-section {
+        flex-basis: 100%;
+        order: 3;
+    }
+    
+    .game-area {
+        order: 1;
+        min-height: 700px;
+        height: auto;
+        overflow: visible;
+    }
+    
+    .card {
+        width: 60px;
+        height: 85px;
+    }
+    
+    .card-rank,
+    .card-suit {
+        font-size: var(--font-size-xs);
+    }
+    
+    .card-suit--large {
+        font-size: var(--font-size-lg);
+    }
+}
+
+/* ========================================
+   Phase 6: キーボードナビゲーション & アクセシビリティ CSS
+   ======================================== */
+
+/* キーボードフォーカス専用スタイル */
+.keyboard-focus {
+    outline: 3px solid var(--color-accent) !important;
+    outline-offset: 2px !important;
+    box-shadow: 0 0 0 5px rgba(52, 152, 219, 0.3) !important;
+    position: relative;
+    z-index: 10;
+}
+
+/* フォーカス可能要素の基本スタイル */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+/* マウス操作時はフォーカスリングを非表示 */
+button:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+select:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* ========================================
+   キーボードヘルプモーダル
+   ======================================== */
+
+.keyboard-help-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.keyboard-help-modal {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-lg);
+}
+
+.keyboard-help-content {
+    background: var(--color-bg-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-2xl);
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.keyboard-help-content h3 {
+    color: var(--color-text);
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-xl);
+    text-align: center;
+    border-bottom: 2px solid var(--color-accent);
+    padding-bottom: var(--spacing-md);
+}
+
+.shortcut-list {
+    display: grid;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+}
+
+.shortcut-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.shortcut-item kbd {
+    background: var(--color-accent);
+    color: white;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    min-width: 80px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.shortcut-item span {
+    color: var(--color-text);
+    font-size: var(--font-size-base);
+    flex: 1;
+    margin-left: var(--spacing-lg);
+}
+
+.keyboard-help-close {
+    width: 100%;
+    padding: var(--spacing-lg);
+    background: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.keyboard-help-close:hover {
+    background: var(--color-accent-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.keyboard-help-close:focus {
+    outline: 2px solid white;
+    outline-offset: 2px;
+}
+
+/* ========================================
+   スクリーンリーダー専用要素
+   ======================================== */
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ========================================
+   高コントラストモード対応
+   ======================================== */
+
+@media (prefers-contrast: high) {
+    .keyboard-focus {
+        outline: 4px solid #000000 !important;
+        background: #FFFF00 !important;
+        color: #000000 !important;
+    }
+    
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible {
+        outline: 3px solid #000000;
+        background: #FFFF00;
+        color: #000000;
+    }
+    
+    .keyboard-help-content {
+        background: #FFFFFF;
+        color: #000000;
+        border: 3px solid #000000;
+    }
+    
+    .shortcut-item kbd {
+        background: #000000;
+        color: #FFFFFF;
+        border: 2px solid #000000;
+    }
+}
+
+/* ========================================
+   モーション軽減対応
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .keyboard-focus {
+        transition: none;
+        animation: none;
+    }
+    
+    .keyboard-help-overlay {
+        animation: none;
+    }
+    
+    .keyboard-help-close:hover {
+        transform: none;
+    }
+    
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible {
+        transition: none;
+    }
+}
+
+/* ========================================
+   大きなテキスト対応
+   ======================================== */
+
+@media (min-width: 768px) {
+    .keyboard-help-content {
+        font-size: 1.2em;
+    }
+    
+    .shortcut-item kbd {
+        min-width: 100px;
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+}
+
+@media (max-width: 480px) {
+    .keyboard-help-content {
+        padding: var(--spacing-lg);
+        margin: var(--spacing-md);
+    }
+    
+    .shortcut-item {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--spacing-sm);
+    }
+    
+    .shortcut-item span {
+        margin-left: 0;
+    }
+    
+    .shortcut-item kbd {
+        min-width: 60px;
+    }
+}
+
+/* ========================================
+   フォーカス順序の視覚的ガイド
+   ======================================== */
+
+.focus-order-indicator {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: var(--color-accent);
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.keyboard-focus .focus-order-indicator {
+    opacity: 1;
+}
+
+/* ========================================
+   ライブリージョンのスタイル
+   ======================================== */
+
+[aria-live] {
+    position: relative;
+}
+
+[aria-live="assertive"]::before {
+    content: "重要";
+    position: absolute;
+    top: -20px;
+    left: 0;
+    font-size: var(--font-size-xs);
+    color: var(--color-accent);
+    font-weight: 600;
+    opacity: 0.7;
+}
+
+/* ========================================
+   タッチデバイスでの調整
+   ======================================== */
+
+@media (hover: none) and (pointer: coarse) {
+    /* タッチデバイスではホバー効果を無効化 */
+    .keyboard-help-close:hover {
+        transform: none;
+        box-shadow: none;
+    }
+    
+    /* タッチターゲットサイズを最適化 */
+    button,
+    input,
+    select,
+    [tabindex] {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .shortcut-item {
+        padding: var(--spacing-lg);
+    }
+}
+
+/* ========================================
+   印刷時のスタイル
+   ======================================== */
+
+@media print {
+    .keyboard-help-overlay,
+    .keyboard-focus,
+    [aria-live]::before {
+        display: none !important;
+    }
+    
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible {
+        outline: 1px solid #000000;
+        box-shadow: none;
+    }
+}
+
+/* ========================================
+   動的ボタン強制表示（緊急修正）
+   ======================================== */
+
+#dynamic-game-controls {
+    position: fixed !important;
+    bottom: 20px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 90% !important;
+    max-width: 600px !important;
+    z-index: 999999 !important;
+    background: linear-gradient(135deg, #ff0000, #cc0000) !important;
+    border: 8px solid #ffff00 !important;
+    border-radius: 15px !important;
+    padding: 20px !important;
+    box-shadow: 0 0 40px rgba(255, 255, 0, 1), inset 0 4px 8px rgba(255, 255, 255, 0.3) !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    animation: pulse 1.5s infinite !important;
+}
+
+#dynamic-game-controls button {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    z-index: 1000000 !important;
+    min-height: 80px !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    border: 5px solid #0066ff !important;
+    border-radius: 15px !important;
+    padding: 20px 12px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.5), inset 0 4px 8px rgba(255,255,255,0.7) !important;
+}
+
+#hitBtn { 
+    background: linear-gradient(135deg, #00ff00, #00cc00) !important; 
+    color: #000000 !important;
+}
+#standBtn { 
+    background: linear-gradient(135deg, #00ffff, #00cccc) !important; 
+    color: #000000 !important;
+}
+#doubleBtn { 
+    background: linear-gradient(135deg, #ff8800, #cc6600) !important; 
+    color: #000000 !important;
+}
+#splitBtn { 
+    background: linear-gradient(135deg, #ff88ff, #cc66cc) !important; 
+    color: #000000 !important;
+}
+#newGameBtn { 
+    background: linear-gradient(135deg, #ffff00, #cccc00) !important;
+    border: 8px solid #ff0000 !important;
+    width: 100% !important;
+    font-size: 22px !important;
+    padding: 25px !important;
+    color: #000000 !important;
+    min-height: 90px !important;
+} 
